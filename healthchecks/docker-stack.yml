@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/swarmlibs/dockerstack-schema/main/schema/dockerstack-spec.json
+
+x-default-logging: &x-default-logging
+  options:
+    max-size: "12m"
+    max-file: "5"
+  driver: json-file
+
+services:
+
+  # ====================================================
+  # Healthchecks
+  # https://github.com/healthchecks/healthchecks
+  # ====================================================
+
+  healthchecks:
+    image: crazymax/healthchecks:latest
+    environment:
+      - SECRET_KEY=super-secret
+      - DB=sqlite
+      - DB_NAME=/data/hc.sqlite
+      - ALLOWED_HOSTS=*
+      - SUPERUSER_EMAIL=admin@cluster.local
+      - SUPERUSER_PASSWORD=admin
+    deploy:
+      replicas: 1
+    logging: *x-default-logging
+    ports:
+      - published: 18000
+        target: 8000
+    hostname: healthchecks.svc.cluster.local
+    volumes:
+      - healthchecks-data:/data
+
+volumes:
+  healthchecks-data:
