@@ -1,6 +1,6 @@
 # About
 
-A collection of **Docker Stack** files for various services.
+A collection of **Docker Stack** template files for various services.
 
 ## Stacks
 
