@@ -16,12 +16,17 @@ services:
   healthchecks:
     image: crazymax/healthchecks:latest
     environment:
-      - SECRET_KEY=super-secret
-      - DB=sqlite
-      - DB_NAME=/data/hc.sqlite
-      - ALLOWED_HOSTS=*
-      - SUPERUSER_EMAIL=admin@cluster.local
-      - SUPERUSER_PASSWORD=admin
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-*}
+      - DB=${DB:-sqlite}
+      - DB_NAME=${DB_NAME:-/data/hc.sqlite}
+      - DEFAULT_FROM_EMAIL
+      - EMAIL_HOST
+      - EMAIL_HOST_PASSWORD
+      - EMAIL_HOST_USER
+      - SECRET_KEY=${SECRET_KEY:-super-secret-key}
+      - SITE_ROOT=${SITE_ROOT:-http://healthchecks.svc.cluster.local:18000}
+      - SUPERUSER_EMAIL=${SUPERUSER_EMAIL:-admin@cluster.local}
+      - SUPERUSER_PASSWORD=${SUPERUSER_PASSWORD:-admin}
     deploy:
       replicas: 1
     logging: *x-default-logging
