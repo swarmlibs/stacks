@@ -1,4 +1,4 @@
-docker-stack-name = promstack_healthchecks
+docker-stack-name = healthchecks
 
 it:
 	@echo "make [deploy|remove|clean|reset] docker-stack-name=$(docker-stack-name)"
