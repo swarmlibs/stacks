@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/swarmlibs/dockerstack-schema/main/schema/dockerstack-spec.json
 services:
   node_metadata:
-    image: swarmlibs/node-metadata-agent:local
+    image: swarmlibs/node-metadata-agent:main
     volumes:
       - type: bind
         source: /var/run/docker.sock
