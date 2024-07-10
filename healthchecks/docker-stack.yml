@@ -36,6 +36,11 @@ services:
     hostname: healthchecks.svc.cluster.local
     volumes:
       - healthchecks-data:/data
+    networks:
+      healthchecks:
 
 volumes:
   healthchecks-data:
+
+networks:
+  healthchecks:
