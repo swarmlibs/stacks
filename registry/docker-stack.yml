@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/swarmlibs/dockerstack-schema/main/schema/dockerstack-spec.json
+
+services:
+  registry:
+    image: registry:2
+    environment:
+      - REGISTRY_PROXY_REMOTEURL=${REGISTRY_PROXY_REMOTEURL:-https://registry-1.docker.io}
+      - REGISTRY_PROXY_USERNAME=${REGISTRY_PROXY_USERNAME}
+      - REGISTRY_PROXY_PASSWORD=${REGISTRY_PROXY_PASSWORD}
+      - REGISTRY_PROXY_TTL=${REGISTRY_PROXY_TTL}
+    ports:
+      - mode: ingress
+        target: 5000
+        published: 5000
+        protocol: tcp
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: any
